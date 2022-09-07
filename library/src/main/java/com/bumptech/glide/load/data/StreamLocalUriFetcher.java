@@ -32,12 +32,12 @@ public class StreamLocalUriFetcher extends LocalUriFetcher<InputStream> {
 
   static {
     URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
-    URI_MATCHER.addURI(ContactsContract.AUTHORITY, "contacts/lookup/*/#", ID_CONTACTS_LOOKUP);
-    URI_MATCHER.addURI(ContactsContract.AUTHORITY, "contacts/lookup/*", ID_CONTACTS_LOOKUP);
-    URI_MATCHER.addURI(ContactsContract.AUTHORITY, "contacts/#/photo", ID_CONTACTS_THUMBNAIL);
-    URI_MATCHER.addURI(ContactsContract.AUTHORITY, "contacts/#", ID_CONTACTS_CONTACT);
-    URI_MATCHER.addURI(ContactsContract.AUTHORITY, "contacts/#/display_photo", ID_CONTACTS_PHOTO);
-    URI_MATCHER.addURI(ContactsContract.AUTHORITY, "phone_lookup/*", ID_LOOKUP_BY_PHONE);
+//    URI_MATCHER.addURI(ContactsContract.AUTHORITY, "contacts/lookup/*/#", ID_CONTACTS_LOOKUP);
+//    URI_MATCHER.addURI(ContactsContract.AUTHORITY, "contacts/lookup/*", ID_CONTACTS_LOOKUP);
+//    URI_MATCHER.addURI(ContactsContract.AUTHORITY, "contacts/#/photo", ID_CONTACTS_THUMBNAIL);
+//    URI_MATCHER.addURI(ContactsContract.AUTHORITY, "contacts/#", ID_CONTACTS_CONTACT);
+//    URI_MATCHER.addURI(ContactsContract.AUTHORITY, "contacts/#/display_photo", ID_CONTACTS_PHOTO);
+//    URI_MATCHER.addURI(ContactsContract.AUTHORITY, "phone_lookup/*", ID_LOOKUP_BY_PHONE);
   }
 
   public StreamLocalUriFetcher(ContentResolver resolver, Uri uri) {
@@ -57,19 +57,19 @@ public class StreamLocalUriFetcher extends LocalUriFetcher<InputStream> {
   private InputStream loadResourceFromUri(Uri uri, ContentResolver contentResolver)
       throws FileNotFoundException {
     switch (URI_MATCHER.match(uri)) {
-      case ID_CONTACTS_CONTACT:
-        return openContactPhotoInputStream(contentResolver, uri);
-      case ID_CONTACTS_LOOKUP:
-      case ID_LOOKUP_BY_PHONE:
-        // If it was a Lookup uri then resolve it first, then continue loading the contact uri.
-        uri = ContactsContract.Contacts.lookupContact(contentResolver, uri);
-        if (uri == null) {
-          throw new FileNotFoundException("Contact cannot be found");
-        }
-        return openContactPhotoInputStream(contentResolver, uri);
-      case ID_CONTACTS_THUMBNAIL:
-      case ID_CONTACTS_PHOTO:
-      case UriMatcher.NO_MATCH:
+//      case ID_CONTACTS_CONTACT:
+//        return openContactPhotoInputStream(contentResolver, uri);
+//      case ID_CONTACTS_LOOKUP:
+//      case ID_LOOKUP_BY_PHONE:
+//        // If it was a Lookup uri then resolve it first, then continue loading the contact uri.
+//        uri = ContactsContract.Contacts.lookupContact(contentResolver, uri);
+//        if (uri == null) {
+//          throw new FileNotFoundException("Contact cannot be found");
+//        }
+//        return openContactPhotoInputStream(contentResolver, uri);
+//      case ID_CONTACTS_THUMBNAIL:
+//      case ID_CONTACTS_PHOTO:
+//      case UriMatcher.NO_MATCH:
       default:
         return contentResolver.openInputStream(uri);
     }
